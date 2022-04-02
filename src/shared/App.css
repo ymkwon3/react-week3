@@ -1,0 +1,26 @@
+.App {
+  width: 100vw;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.icon {
+  transition: 0.2s;
+}
+
+.icon:hover {
+  transform: scale(1.1);
+}
+
+.flex-column-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
