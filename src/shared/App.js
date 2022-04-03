@@ -27,7 +27,7 @@ function App() {
   }, []);
   return (
     <div className="App flex-column-center">
-      <Grid>
+      <Grid width="600px">
         <Header />
         <ConnectedRouter history={history}>
           <Route path="/" exact component={PostList} />
