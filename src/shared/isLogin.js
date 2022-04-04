@@ -1,4 +1,3 @@
-import {_session_key} from "./firebase"
 
 
 const getCookie = (name) => {
@@ -20,6 +19,6 @@ const deleteCookie = (name) => {
   document.cookie = `${name}=; expires=Thu, 01 Jan 1999 00:00:10 GMT;`;
 }
 
-const isSession = () => sessionStorage.getItem(_session_key) ? true : false;
 
-export { getCookie, setCookie, deleteCookie, isSession }
+
+export { getCookie, setCookie, deleteCookie }

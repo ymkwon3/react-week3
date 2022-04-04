@@ -1,28 +1,75 @@
 import React from "react";
 import { Button, Grid, Image, Input, Text } from "../elements";
 
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
+import Upload from "../shared/Upload";
+
 const PostWrite = props => {
+  const dispatch = useDispatch();
+  const is_login = useSelector(state => state.user.is_login);
+  const preview = useSelector(state => state.image.preview);
+  const post_list = useSelector(state => state.post.list);
+  const pid = props.match.params.pid;
+  const _post = pid ? post_list.find(v => v.id === pid) : null;
+  const [content, setContent] = React.useState(_post ? _post.contents : "");
+  if (!is_login) {
+    return (
+      <Grid margin="100px auto" textAlign="center">
+        <Text fontWeight="bold" fontSize="24px">
+          로그인이 필요한 서비스입니다!
+        </Text>
+      </Grid>
+    );
+  }
+
   return (
     <>
       <Grid>
         <Grid>
-          <Text bold={true} size={"32px"}>
-            게시글 작성
+          <Text fontWeight="bold" fontSize="24px">
+            {_post ? "게시글 수정" : "게시글 작성"}
           </Text>
         </Grid>
         <Grid is_flex>
-          <Input width="300px"></Input>
-          <Button width="100px">이미지 선택</Button>
+          <Upload></Upload>
         </Grid>
         <Grid>
-          <Text bold={true} size={"20px"}>미리보기</Text>
-          <Image shape="rectangle" src={props.image_url}></Image>
+          <Text bold={true} size={"20px"}>
+            미리보기
+          </Text>
+          <Image
+            shape="rectangle"
+            src={
+              preview
+                ? preview
+                : _post
+                ? _post.image_url
+                : "https://reactrealbaisc.s3.ap-northeast-2.amazonaws.com/31_RM.png"
+            }
+          ></Image>
         </Grid>
         <Grid>
-          <Input label={"게시글 내용"} textarea={true} ph={"내용을 입력해주세요"} padding={"12px 4px"}></Input>
+          <Input
+            value={content}
+            _onChange={e => setContent(e.target.value)}
+            label={"게시글 내용"}
+            textarea={true}
+            ph={"내용을 입력해주세요"}
+            padding="6px"
+          ></Input>
         </Grid>
         <Grid>
-          <Button height={"50px"} _onClick={() => console.log("게시글 작성")}>게시글 작성</Button>
+          <Button
+            height={"50px"}
+            _onClick={() => {
+              _post
+                ? dispatch(postActions.updatePostFB(content, pid))
+                : dispatch(postActions.addPostFB(content));
+            }}
+          >
+            {_post ? "게시글 수정" : "게시글 작성"}
+          </Button>
         </Grid>
       </Grid>
     </>

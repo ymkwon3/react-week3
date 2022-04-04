@@ -8,7 +8,7 @@ import {
   updateProfile,
   browserSessionPersistence,
 } from "firebase/auth";
-import { firebase, _session_key } from "../../shared/firebase";
+import { firebase, _session_key, auth } from "../../shared/firebase";
 
 // actions
 const LOG_OUT = "LOG_OUT";
@@ -33,7 +33,6 @@ const user_initial = {
 
 const signUpFB = (id, pwd, name) => {
   return function (dispatch, getState, { history }) {
-    const auth = getAuth(firebase);
     createUserWithEmailAndPassword(auth, id, pwd)
       .then(userCredential => {
         updateProfile(auth.currentUser, {
@@ -45,7 +44,7 @@ const signUpFB = (id, pwd, name) => {
                 user_name: name,
                 id: id,
                 user_profile: "",
-                uid: userCredential.user.uid,
+                user_id: userCredential.user.uid,
               })
             );
             history.push("/");
@@ -64,18 +63,16 @@ const signUpFB = (id, pwd, name) => {
 
 const loginFB = (id, pwd) => {
   return function (dispatch, getState, { history }) {
-    const auth = getAuth(firebase);
-
     setPersistence(auth, browserSessionPersistence)
       .then(() => {
         return signInWithEmailAndPassword(auth, id, pwd).then(
-          userCredential => {
+          user => {
             dispatch(
               setUser({
-                user_name: userCredential.user.displayName,
+                user_name: user.user.displayName,
                 id: id,
                 user_profile: "",
-                uid: userCredential.user.uid,
+                user_id: user.user.uid,
               })
             );
             history.push("/");
@@ -90,7 +87,6 @@ const loginFB = (id, pwd) => {
 
 const loginCheckFB = () => {
   return function (dispatch, getState, { history }) {
-    const auth = getAuth(firebase);
     auth.onAuthStateChanged(user => {
       if (user) {
         dispatch(
@@ -98,7 +94,7 @@ const loginCheckFB = () => {
             user_name: user.displayName,
             id: user.id,
             user_profile: "",
-            uid: user.uid,
+            user_id: user.uid,
           })
         );
       } else {
@@ -118,7 +114,7 @@ export default handleActions(
 
     [LOG_OUT]: (state, action) =>
       produce(state, draft => {
-        sessionStorage.removeItem(_session_key)
+        sessionStorage.removeItem(_session_key);
         draft.user = null;
         draft.is_login = false;
       }),

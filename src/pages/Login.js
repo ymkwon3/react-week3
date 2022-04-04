@@ -12,15 +12,15 @@ const Login = props => {
   const loginBtn = () => {
 
     //테스트 계정 로그인 편하게 해주려고 했습니다. 나중에 지워야합니다람쥐
-    dispatch(userActions.loginFB("test@test.com", "1q2w3e4r"));
+    dispatch(userActions.loginFB("t@test.com", "1q2w3e4r"));
     // dispatch(userActions.loginFB(id, pwd));
   }
 
   return (
     <>
-      <Grid width={"400px"} className="flex-column-center">
+      <Grid className="flex-column-center">
         <Grid>
-          <Text bold size={"32px"}>
+          <Text fontWeight="bold" fontSize="24px">
             로그인
           </Text>
         </Grid>

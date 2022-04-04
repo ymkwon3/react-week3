@@ -2,15 +2,32 @@ import React from "react";
 import styled from "styled-components";
 
 const Grid = props => {
-  const { is_flex, width, margin, padding, bg, children } = props;
+  const {
+    is_flex,
+    width,
+    height,
+    margin,
+    padding,
+    bg,
+    position,
+    textAlign,
+    scroll,
+    border,
+    children,
+  } = props;
 
   const styles = {
     is_flex: is_flex,
     width: width,
+    height: height,
     margin: margin,
     padding: padding,
+    position: position,
     bg: bg,
-  }
+    textAlign: textAlign,
+    scroll: scroll,
+    border: border,
+  };
   return (
     <>
       <GridBox {...styles}>{children}</GridBox>
@@ -21,23 +38,33 @@ const Grid = props => {
 Grid.defaultProps = {
   is_flex: false,
   width: "100%",
-  padding: false,
-  margin: false,
-  bg: false,
+  height: "",
+  padding: "",
+  margin: "",
+  bg: "",
+  position: "static",
   children: null,
+  textAlign: "",
+  scroll: false,
+  border: "none",
 };
 
 const GridBox = styled.div`
   width: ${props => props.width};
-  height: 100%;
+  height: ${props => props.height};
   box-sizing: border-box;
-  ${props => (props.padding ? `padding: ${props.padding};` : "")}
-  ${props => (props.margin ? `margin: ${props.margin};` : "")}
-  ${props => (props.bg ? `background-color: ${props.bg};` : "")}
+  position: ${props => props.position};
+  padding: ${props => props.padding};
+  margin: ${props => props.margin};
+  background-color: ${props => props.bg};
+  text-align: ${props => props.textAlign};
+  border: ${props => props.border};
   ${props =>
     props.is_flex
       ? `display: flex; align-items: center; justify-content: space-between;`
-      : ""}
+      : ""};
+  ${props =>
+    props.scroll ? `overflow-y:auto` : ``};
 `;
 
 export default Grid;

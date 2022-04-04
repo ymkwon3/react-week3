@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { isSession } from "./isLogin";
+import { isSession } from "./firebase";
 
 const Permit = props => {
   const user_info = useSelector(state => state.user.user);

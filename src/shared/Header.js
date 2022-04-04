@@ -13,8 +13,8 @@ const Header = props => {
     <>
       <Grid is_flex padding="4px 16px">
         <Grid>
-          <Text margin="0px" size="24px" bold>
-            헬로
+          <Text margin="0px" fontSize="24px" fontWeight="bold">
+            대충로고
           </Text>
         </Grid>
         {is_login ? (

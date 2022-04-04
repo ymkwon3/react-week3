@@ -3,8 +3,18 @@ import styled from "styled-components";
 import { Text } from "./index";
 
 const Input = props => {
-  const { width, color, size, padding, ph, label, type, textarea, _onChange } =
-    props;
+  const {
+    width,
+    color,
+    size,
+    padding,
+    ph,
+    label,
+    type,
+    textarea,
+    value,
+    _onChange,
+  } = props;
 
   const styles = { width: width, color: color, size: size, padding: padding };
   return (
@@ -17,6 +27,7 @@ const Input = props => {
             placeholder={ph}
             type={type}
             onChange={_onChange}
+            value={value}
           ></TextAreaStyled>
         ) : (
           <InputStyled
@@ -24,6 +35,7 @@ const Input = props => {
             placeholder={ph}
             type={type}
             onChange={_onChange}
+            value={value}
           ></InputStyled>
         )}
       </div>
@@ -42,6 +54,7 @@ Input.defaultProps = {
 
 const TextAreaStyled = styled.textarea`
   width: ${props => props.width};
+  height: 200px;
   font-size: ${props => props.size};
   padding: ${props => props.padding};
   border: 2px solid ${props => props.color};
