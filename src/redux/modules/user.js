@@ -21,7 +21,12 @@ const logOut = createAction(LOG_OUT, user => ({ user }));
 const getUser = createAction(GET_USER, user => ({ user }));
 
 const initialState = {
-  user: null,
+  user: {
+    user_name: "",
+    id: "",
+    user_profile: "",
+    user_id: "",
+  },
   is_login: false,
 };
 
@@ -115,7 +120,12 @@ export default handleActions(
     [LOG_OUT]: (state, action) =>
       produce(state, draft => {
         sessionStorage.removeItem(_session_key);
-        draft.user = null;
+        draft.user = {
+          user_name: "",
+          id: "",
+          user_profile: "",
+          user_id: "",
+        };
         draft.is_login = false;
       }),
   },

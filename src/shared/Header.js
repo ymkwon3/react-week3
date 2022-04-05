@@ -13,14 +13,14 @@ const Header = props => {
     <>
       <Grid is_flex padding="4px 16px">
         <Grid>
-          <Text margin="0px" fontSize="24px" fontWeight="bold">
+          <Text margin="0px" fontSize="24px" fontWeight="bold" _onClick={() => history.push("/")}>
             대충로고
           </Text>
         </Grid>
         {is_login ? (
           <Grid is_flex>
             <Button _onClick={() => history.push("/login")}>내정보</Button>
-            <Button _onClick={() => history.push("/signup")}>알림</Button>
+            <Button _onClick={() => history.push("/notification")}>알림</Button>
             <Button _onClick={() => dispatch(userActions.logOut({}))}>
               로그아웃
             </Button>

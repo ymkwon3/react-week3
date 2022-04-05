@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 
 const Post = props => {
+  console.log()
   const uid = useSelector(state => state.user.user.user_id);
-  const pid = useSelector(state => state.post.list)[props.index].id;
   return (
     <>
       <Grid margin="40px 0" border="1px solid red">
@@ -14,7 +14,7 @@ const Post = props => {
           <Text bold>{props.user_info.user_name}</Text>
           <Text>{props.insert_dt}</Text>
           {props.user_info.user_id === uid ? (
-            <Button width="100px" bg="#666" _onClick={() => history.push(`/postedit/${pid}`)}>
+            <Button width="100px" bg="#666" _onClick={() => history.push(`/postedit/${props.id}`)}>
               수정하기
             </Button>
           ) : null}
@@ -39,7 +39,7 @@ Post.defaultProps = {
     user_profile:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmHjmasqWbB3IdXO80h_PDBPg3Th4SGcpTwg&usqp=CAU",
   },
-  image_url: "https://reactrealbaisc.s3.ap-northeast-2.amazonaws.com/18_RM.png",
+  image_url: "https://reactrealbaisc.s3.ap-northeast-2.amazonaws.com/31_RM.png",
   contents: "선장님~~~",
   comment_cnt: 0,
   insert_dt: "2022-04-01 10:00:00",

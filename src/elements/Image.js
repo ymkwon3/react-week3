@@ -25,13 +25,13 @@ const Image = props => {
 
 Image.defaultProps = {
   shape: "circle",
-  src: "https://reactrealbaisc.s3.ap-northeast-2.amazonaws.com/18_RM.png",
+  src: "https://reactrealbaisc.s3.ap-northeast-2.amazonaws.com/31_RM.png",
   size: 36,
 };
 
 const AspectOutter = styled.div`
   width: 100%;
-  min-width: 250px;
+  min-width: 100px;
 `;
 
 const AspectInner = styled.div`

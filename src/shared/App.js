@@ -11,10 +11,11 @@ import { history } from "../redux/configureStore";
 import { Grid } from "../elements";
 
 import { useDispatch } from "react-redux";
-import {actionCreators as userActions} from "../redux/modules/user"
-import {isSession} from "./firebase"
+import { actionCreators as userActions } from "../redux/modules/user";
+import { isSession } from "./firebase";
 import PostWrite from "../pages/PostWrite";
 import PostDetail from "../pages/PostDetail";
+import Notification from "../pages/Notification";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function App() {
   const is_session = isSession();
 
   React.useEffect(() => {
-    if(is_session){
+    if (is_session) {
       dispatch(userActions.loginCheckFB());
     }
   }, []);
@@ -34,9 +35,12 @@ function App() {
           <Route path="/" exact component={PostList} />
           <Route path="/postwrite" exact component={PostWrite} />
           <Route path="/postedit/:pid" exact component={PostWrite} />
-          <Route path="/postdetail" exact component={PostDetail} />
+          <Route path="/post/:pid" exact component={PostDetail} />
+
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={SignUp} />
+          <Route path="/notification" exact component={Notification}></Route>
+
           <Route path="/search" exact component={Search} />
         </ConnectedRouter>
       </Grid>

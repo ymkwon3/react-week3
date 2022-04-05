@@ -11,9 +11,9 @@ const Grid = props => {
     bg,
     position,
     textAlign,
-    scroll,
     border,
     children,
+    _onClick,
   } = props;
 
   const styles = {
@@ -25,12 +25,11 @@ const Grid = props => {
     position: position,
     bg: bg,
     textAlign: textAlign,
-    scroll: scroll,
     border: border,
   };
   return (
     <>
-      <GridBox {...styles}>{children}</GridBox>
+      <GridBox {...styles} onClick={_onClick}>{children}</GridBox>
     </>
   );
 };
@@ -45,8 +44,8 @@ Grid.defaultProps = {
   position: "static",
   children: null,
   textAlign: "",
-  scroll: false,
   border: "none",
+  _onClick: () => {},
 };
 
 const GridBox = styled.div`
@@ -63,8 +62,6 @@ const GridBox = styled.div`
     props.is_flex
       ? `display: flex; align-items: center; justify-content: space-between;`
       : ""};
-  ${props =>
-    props.scroll ? `overflow-y:auto` : ``};
 `;
 
 export default Grid;

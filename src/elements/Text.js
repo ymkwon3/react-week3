@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const Text = props => {
-  const { fontWeight, color, fontSize, margin, children } = props;
+  const { fontWeight, color, fontSize, margin, _onClick, children } = props;
   const styles = { fontWeight: fontWeight, color: color, fontSize: fontSize, margin: margin };
   return (
     <>
-      <P {...styles}>{children}</P>
+      <P {...styles} onClick={_onClick}>{children}</P>
     </>
   );
 };
@@ -22,7 +22,7 @@ const P = styled.div`
   color: ${props => props.color};
   font-size: ${props => props.fontSize};
   font-weight: ${props => props.fontWeight};
-  margin: ${props => props.marign};
+  margin: ${props => props.margin};
 `;
 
 export default Text;
