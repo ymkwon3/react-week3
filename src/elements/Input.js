@@ -13,7 +13,9 @@ const Input = props => {
     type,
     textarea,
     value,
+    isSubmit,
     _onChange,
+    _onSubmit,
   } = props;
 
   const styles = { width: width, color: color, size: size, padding: padding };
@@ -28,14 +30,36 @@ const Input = props => {
             type={type}
             onChange={_onChange}
             value={value}
+            onKeyDown={(e)=>{
+              if(e.key === "Enter"){
+                _onSubmit(e);
+              }
+            }}
           ></TextAreaStyled>
-        ) : (
+        ) : isSubmit ? (
           <InputStyled
             {...styles}
             placeholder={ph}
             type={type}
             onChange={_onChange}
             value={value}
+            onKeyDown={(e)=>{
+              if(e.key === "Enter"){
+                _onSubmit(e);
+              }
+            }}
+          ></InputStyled>
+        ): (
+          <InputStyled
+            {...styles}
+            placeholder={ph}
+            type={type}
+            onChange={_onChange}
+            onKeyDown={(e)=>{
+              if(e.key === "Enter"){
+                _onSubmit(e);
+              }
+            }}
           ></InputStyled>
         )}
       </div>
@@ -49,7 +73,10 @@ Input.defaultProps = {
   size: "14px",
   padding: "0",
   type: "text",
+  isSubmit: false,
   textarea: false,
+  _onSubmit: () => {},
+  _onChange: () => {},
 };
 
 const TextAreaStyled = styled.textarea`

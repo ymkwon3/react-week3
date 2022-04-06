@@ -1,7 +1,11 @@
 import React from "react";
 import { Grid, Image, Text } from "../elements";
+import { history } from "../redux/configureStore";
 
 const NotiCard = props => {
+
+  const {image_url, user_name, post_id} = props;
+
   const styles = {
     bg: "#eee",
     height: "100px",
@@ -10,12 +14,12 @@ const NotiCard = props => {
   };
 
   return (
-    <Grid {...styles}>
+    <Grid {...styles} _onClick={() => history.push(`/post/${post_id}`)}>
       <Grid width="100px">
-        <Image shape="rectangle"></Image>
+        <Image shape="rectangle" src={image_url}></Image>
       </Grid>
       <Grid margin="0 0 0 40px">
-      <Text><span style={{fontWeight: 'bold'}}>{props.children}</span>님이 댓글을 남겼습니다!</Text>
+      <Text><span style={{fontWeight: 'bold'}}>{user_name}</span>님이 댓글을 남겼습니다!</Text>
       </Grid>
     </Grid>
   );

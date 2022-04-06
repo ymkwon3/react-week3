@@ -13,7 +13,10 @@ const Button = props => {
   };
   return (
     <>
-      <ButtonStyled {...styles} onClick={_onClick} >{children}</ButtonStyled>
+      <ButtonStyled {...styles} onClick={(e) => {
+        e.stopPropagation();
+        _onClick();
+      }} >{children}</ButtonStyled>
     </>
   );
 };
@@ -24,7 +27,7 @@ Button.defaultProps = {
   color: "#ffffff",
   size: "14px",
   padding: "0",
-  bg: "#000000"
+  bg: "#000000",
 };
 
 const ButtonStyled = styled.button`

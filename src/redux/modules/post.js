@@ -13,9 +13,11 @@ import {
   orderBy,
   limit,
   startAt,
+  deleteDoc,
 } from "firebase/firestore";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { actionCreators as ImageActions } from "./image";
+import { actionCreators as CommentActions } from "./comment";
 import moment from "moment";
 
 const user_collection = collection(db, "post");
@@ -24,6 +26,7 @@ const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 const UPDATE_POST = "UPDATE_POST";
 const LOADING = "LOADING";
+const DELETE_POST = "DELETE_POST";
 
 const setPost = createAction(SET_POST, (post_list, paging) => ({
   post_list,
@@ -32,6 +35,7 @@ const setPost = createAction(SET_POST, (post_list, paging) => ({
 const addPost = createAction(ADD_POST, post => ({ post }));
 const updatePost = createAction(UPDATE_POST, (pid, post) => ({ pid, post }));
 const loading = createAction(LOADING, is_loading => ({ is_loading }));
+const deletePost = createAction(DELETE_POST, pid => ({ pid }));
 
 const initialState = {
   list: [],
@@ -49,7 +53,7 @@ const initialPost = {
   image_url: "https://reactrealbaisc.s3.ap-northeast-2.amazonaws.com/18_RM.png",
   contents: "",
   comment_cnt: 0,
-  insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
+  insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
 };
 
 const getPostFB = (start = null, size = 3) => {
@@ -95,8 +99,8 @@ const getPostFB = (start = null, size = 3) => {
   };
 };
 
-const getOnePostFB = (pid) => {
-  return async function(dispatch, getState, {history}) {
+const getOnePostFB = pid => {
+  return async function (dispatch, getState, { history }) {
     const getPost = await getDoc(doc(db, "post", pid));
     const postDB = getPost.data();
     let p = Object.keys(postDB).reduce(
@@ -109,11 +113,11 @@ const getOnePostFB = (pid) => {
         }
         return { ...acc, [cur]: postDB[cur] };
       },
-      { id: doc.id, user_info: {} }
+      { id: pid, user_info: {} }
     );
-      dispatch(setPost([p]))
-  }
-}
+    dispatch(setPost([p]));
+  };
+};
 
 const addPostFB = contents => {
   return async function (dispatch, getState, { history }) {
@@ -165,6 +169,8 @@ const updatePostFB = (contents, pid) => {
 
     const uid = getState().user.user.user_id;
     const docRef = doc(db, "post", pid);
+
+    // redux preview가 있을 때는 수정 시 이미지도 변경한 것
     if (_image) {
       const storageRef = ref(storage, `images/${uid}_${new Date().getTime()}`);
       uploadString(storageRef, _image, "data_url").then(async snapshot => {
@@ -179,7 +185,9 @@ const updatePostFB = (contents, pid) => {
           });
         });
       });
-    } else {
+    } 
+    // redux preview가 없을 때는 내용만 변경
+    else {
       await updateDoc(docRef, {
         contents: contents,
       }).then(() => {
@@ -188,13 +196,25 @@ const updatePostFB = (contents, pid) => {
         dispatch(ImageActions.setPreview(null));
       });
     }
-    // dispatch(updatePost(res));
+  };
+};
 
-    // const _post = {
-    //   ...initialPost,
-    //   contents: contents,
-    //   insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
-    // };
+const deletePostFB = pid => {
+  return async function (dispatch, getState, { history }) {
+    await deleteDoc(doc(db, "post", pid)).then(async res => {
+      const q = query(collection(db, "comment"), where("post_id", "==", pid));
+
+      //게시물 삭제 시, 해당 게시글에 있는 댓글을 redux와 firestore에서 제거
+      await getDocs(q).then((docs) => {
+        docs.forEach(async (d) => {
+          await deleteDoc(doc(db, "comment", d.id));
+        })
+      })
+      dispatch(CommentActions.deleteComment(pid));
+
+      dispatch(deletePost(pid));
+      history.replace("/");
+    });
   };
 };
 
@@ -204,14 +224,13 @@ export default handleActions(
       produce(state, draft => {
         draft.list.push(...action.payload.post_list);
         draft.list = draft.list.reduce((acc, cur) => {
-          if(acc.findIndex(a => a.id === cur.id) === -1) {
+          if (acc.findIndex(a => a.id === cur.id) === -1) {
             return [...acc, cur];
-          }else {
+          } else {
             return acc;
           }
         }, []);
-
-        if(action.payload.paging){
+        if (action.payload.paging) {
           draft.paging = action.payload.paging;
         }
         draft.is_loading = false;
@@ -225,6 +244,10 @@ export default handleActions(
         const idx = draft.list.findIndex(v => v.id === action.payload.pid);
         draft.list[idx] = { ...draft.list[idx], ...action.payload.post };
       }),
+    [DELETE_POST]: (state, action) =>
+      produce(state, draft => {
+        draft.list = draft.list.filter((v, i) => v.id !== action.payload.pid);
+      }),
     [LOADING]: (state, action) =>
       produce(state, draft => {
         draft.is_loading = action.payload.is_loading;
@@ -236,10 +259,12 @@ export default handleActions(
 const actionCreators = {
   setPost,
   addPost,
+  updatePost,
   getPostFB,
   addPostFB,
   updatePostFB,
   getOnePostFB,
+  deletePostFB,
 };
 
 export { actionCreators };

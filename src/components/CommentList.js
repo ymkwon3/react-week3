@@ -1,11 +1,30 @@
 import React from "react";
 import { Grid, Image, Text } from "../elements";
 
-const CommentList = () => {
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as commentActions } from "../redux/modules/comment";
+
+const CommentList = (props) => {
+  const {post_id} = props;
+  const dispatch = useDispatch();
+  const comment_list = useSelector(state => state.comment.list);
+  
+  React.useEffect(() => {
+    if(!comment_list[post_id]) {
+      dispatch(commentActions.getCommentFB(post_id));
+    }
+  }, [])
+
+  if(!comment_list[post_id] || !post_id) {
+    return null;
+  }
   return (
     <>
       <Grid padding="16px">
-        <CommentItem></CommentItem>
+        {comment_list[post_id].map((v, i) => {
+          return <CommentItem key={v.id} {...v}/>
+        })}
+        
       </Grid>
     </>
   )

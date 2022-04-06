@@ -1,22 +1,37 @@
 import React from "react";
 import { Grid, Text, Image, Button } from "../elements";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configureStore";
+import { actionCreators as postActions } from "../redux/modules/post";
+
 
 const Post = props => {
-  console.log()
   const uid = useSelector(state => state.user.user.user_id);
+  const dispatch = useDispatch();
   return (
     <>
       <Grid margin="40px 0" border="1px solid red">
         <Grid is_flex>
-          <Image shape={"circle"} src={props.user_info.user_profile}></Image>
+          <Image shape="circle" src={props.user_info.user_profile}></Image>
           <Text bold>{props.user_info.user_name}</Text>
           <Text>{props.insert_dt}</Text>
           {props.user_info.user_id === uid ? (
-            <Button width="100px" bg="#666" _onClick={() => history.push(`/postedit/${props.id}`)}>
-              수정하기
-            </Button>
+            <>
+              <Button
+                width="60px"
+                bg="#666"
+                _onClick={() => history.push(`/postedit/${props.id}`)}
+              >
+                수정
+              </Button>
+              <Button
+                width="60px"
+                bg="#666"
+                _onClick={() => dispatch(postActions.deletePostFB(props.id))}
+              >
+                삭제
+              </Button>
+            </>
           ) : null}
         </Grid>
         <Grid padding={"16px"}>

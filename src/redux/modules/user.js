@@ -24,7 +24,7 @@ const initialState = {
   user: {
     user_name: "",
     id: "",
-    user_profile: "",
+    user_profile: "https://firebasestorage.googleapis.com/v0/b/sparta-react-basic-23ac8.appspot.com/o/images%2FUmLR4GolOEXmfVAUD01VbLPajQt2_1649076812067?alt=media&token=08609bd5-4ac4-43eb-9f3c-474c5c38a6d9",
     user_id: "",
   },
   is_login: false,
@@ -48,7 +48,7 @@ const signUpFB = (id, pwd, name) => {
               setUser({
                 user_name: name,
                 id: id,
-                user_profile: "",
+                user_profile: "https://firebasestorage.googleapis.com/v0/b/sparta-react-basic-23ac8.appspot.com/o/images%2FUmLR4GolOEXmfVAUD01VbLPajQt2_1649076812067?alt=media&token=08609bd5-4ac4-43eb-9f3c-474c5c38a6d9",
                 user_id: userCredential.user.uid,
               })
             );
@@ -76,7 +76,7 @@ const loginFB = (id, pwd) => {
               setUser({
                 user_name: user.user.displayName,
                 id: id,
-                user_profile: "",
+                user_profile: "https://firebasestorage.googleapis.com/v0/b/sparta-react-basic-23ac8.appspot.com/o/images%2FUmLR4GolOEXmfVAUD01VbLPajQt2_1649076812067?alt=media&token=08609bd5-4ac4-43eb-9f3c-474c5c38a6d9",
                 user_id: user.user.uid,
               })
             );
@@ -98,7 +98,7 @@ const loginCheckFB = () => {
           setUser({
             user_name: user.displayName,
             id: user.id,
-            user_profile: "",
+            user_profile: "https://firebasestorage.googleapis.com/v0/b/sparta-react-basic-23ac8.appspot.com/o/images%2FUmLR4GolOEXmfVAUD01VbLPajQt2_1649076812067?alt=media&token=08609bd5-4ac4-43eb-9f3c-474c5c38a6d9",
             user_id: user.uid,
           })
         );

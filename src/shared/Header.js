@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid, Text, Button } from "../elements";
+import NotiBadge from "../components/NotiBadge";
 import { history } from "../redux/configureStore";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -19,8 +20,8 @@ const Header = props => {
         </Grid>
         {is_login ? (
           <Grid is_flex>
-            <Button _onClick={() => history.push("/login")}>내정보</Button>
-            <Button _onClick={() => history.push("/notification")}>알림</Button>
+            <Button _onClick={() => history.push("/login")}>내 정보</Button>
+            <NotiBadge _onClick={() => history.push("/notification")}></NotiBadge>
             <Button _onClick={() => dispatch(userActions.logOut({}))}>
               로그아웃
             </Button>

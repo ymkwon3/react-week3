@@ -12,8 +12,8 @@ const Login = props => {
   const loginBtn = () => {
 
     //테스트 계정 로그인 편하게 해주려고 했습니다. 나중에 지워야합니다람쥐
-    dispatch(userActions.loginFB("t@test.com", "1q2w3e4r"));
-    // dispatch(userActions.loginFB(id, pwd));
+    // dispatch(userActions.loginFB("t@test.com", "1q2w3e4r"));
+    dispatch(userActions.loginFB(id, pwd));
   }
 
   return (
@@ -39,6 +39,7 @@ const Login = props => {
             padding={"10px"}
             type={"password"}
             _onChange={(e) => setPwd(e.target.value)}
+            _onSubmit={loginBtn}
           ></Input>
         </Grid>
         <Grid>

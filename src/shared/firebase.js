@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCRtGQfuG7vIpZqjwLB_YjB-h3xoe-iObk",
@@ -22,5 +23,6 @@ const isSession = () => (sessionStorage.getItem(_session_key) ? true : false);
 const auth = getAuth(firebase);
 const db = getFirestore();
 const storage = getStorage();
+const rtdb = getDatabase(firebase);
 
-export { firebase, apiKey, _session_key, isSession, db, storage, auth };
+export { firebase, apiKey, _session_key, isSession, db, storage, auth, rtdb };
