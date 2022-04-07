@@ -1,6 +1,6 @@
 import React from "react";
 import NotiCard from "../components/NotiCard";
-import { Grid } from "../elements";
+import { Grid, Text } from "../elements";
 
 import { rtdb } from "../shared/firebase";
 import { useSelector } from "react-redux";
@@ -33,9 +33,9 @@ const Notification = () => {
 
   return (
     <Grid>
-      {noti.map((v, i) => (
+      { noti.length > 0 ? noti.map((v, i) => (
         <NotiCard key={`noti_${i}`} {...v}></NotiCard>
-      ))}
+      )) : <Text>알림이 없습니다!</Text>}
     </Grid>
   );
 };

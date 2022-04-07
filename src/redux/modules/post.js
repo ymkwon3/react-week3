@@ -119,7 +119,7 @@ const getOnePostFB = pid => {
   };
 };
 
-const addPostFB = contents => {
+const addPostFB = (contents, radioState) => {
   return async function (dispatch, getState, { history }) {
     const _user = getState().user.user;
     const _image = getState().image.preview;
@@ -131,7 +131,8 @@ const addPostFB = contents => {
     const _post = {
       ...initialPost,
       contents: contents,
-      insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
+      radioState: radioState,
+      insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
     };
     const storageRef = ref(
       storage,
@@ -163,7 +164,7 @@ const addPostFB = contents => {
   };
 };
 
-const updatePostFB = (contents, pid) => {
+const updatePostFB = (contents, pid, radioState) => {
   return async function (dispatch, getState, { history }) {
     const _image = getState().image.preview;
 
@@ -177,9 +178,10 @@ const updatePostFB = (contents, pid) => {
         getDownloadURL(snapshot.ref).then(async url => {
           await updateDoc(docRef, {
             contents: contents,
+            radioState: radioState,
             image_url: url,
           }).then(() => {
-            dispatch(updatePost(pid, { image_url: url, contents: contents }));
+            dispatch(updatePost(pid, { image_url: url, contents,  radioState}));
             history.replace("/");
             dispatch(ImageActions.setPreview(null));
           });
@@ -190,8 +192,9 @@ const updatePostFB = (contents, pid) => {
     else {
       await updateDoc(docRef, {
         contents: contents,
+        radioState: radioState,
       }).then(() => {
-        dispatch(updatePost(pid, { contents: contents }));
+        dispatch(updatePost(pid, { contents, radioState }));
         history.replace("/");
         dispatch(ImageActions.setPreview(null));
       });

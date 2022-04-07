@@ -24,23 +24,22 @@ const CommentList = (props) => {
         {comment_list[post_id].map((v, i) => {
           return <CommentItem key={v.id} {...v}/>
         })}
-        
       </Grid>
     </>
   )
 }
 
 const CommentItem = (props) => {
-  const {user_profile, user_name, user_id, post_id, contents, insert_dt} = props;
+  const {user_name, contents, insert_dt} = props;
   return (
-    <Grid is_flex>
-      <Grid is_flex width="auto">
+    <Grid flex="start">
+      <Grid flex="start" width="150px">
         <Image/>
         <Text bold>{user_name}</Text>
       </Grid>
-      <Grid is_flex margin="0 10px">
-        <Text>{contents}</Text>
-        <Text>{insert_dt}</Text>
+      <Grid flex="space-between">
+        <Text width="250px" padding="5px">{contents} </Text>
+        <Text ta="right" type="date">{insert_dt}</Text>
       </Grid>
     </Grid>
   )

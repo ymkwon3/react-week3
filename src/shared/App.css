@@ -1,21 +1,19 @@
+body {
+  background-color: #ffffff;
+}
+
 .App {
   width: 100vw;
+  margin: 40px 0;
 }
 
 * {
   box-sizing: border-box;
+  font-family: 'Cute Font', cursive;
 }
 
 *::-webkit-scrollbar {
   display: none;
-}
-
-.icon {
-  transition: 0.2s;
-}
-
-.icon:hover {
-  transform: scale(1.1);
 }
 
 .flex-column-center {
@@ -28,4 +26,23 @@
 .scroll {
   overflow-y: scroll;
   height: 100%;
+}
+
+.hover {
+  user-select: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.hover:hover {
+  transform: scale(1.05);
+}
+
+.header {
+  position: sticky!important;
+  width: 602px!important;
+  background-color: #80a841;
+  top: 0px;
+  z-index: 10;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }

@@ -25,7 +25,7 @@ const Icons = props => {
   
   return (
     <>
-      <Tag {...attrs} style={styles} className="icon"></Tag>
+      <Tag {...attrs} style={styles} className="hover"></Tag>
     </>
   );
 };

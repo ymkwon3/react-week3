@@ -1,14 +1,13 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   setPersistence,
   updateProfile,
   browserSessionPersistence,
 } from "firebase/auth";
-import { firebase, _session_key, auth } from "../../shared/firebase";
+import { _session_key, auth } from "../../shared/firebase";
 
 // actions
 const LOG_OUT = "LOG_OUT";
@@ -30,12 +29,8 @@ const initialState = {
   is_login: false,
 };
 
-const user_initial = {
-  user_name: "ingmin",
-};
 
 // middlewaore actions
-
 const signUpFB = (id, pwd, name) => {
   return function (dispatch, getState, { history }) {
     createUserWithEmailAndPassword(auth, id, pwd)
@@ -59,9 +54,8 @@ const signUpFB = (id, pwd, name) => {
           });
       })
       .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.log(error);
+        window.alert("이메일 / 비밀번호 형식이 맞지 않습니다!")
       });
   };
 };
@@ -86,6 +80,7 @@ const loginFB = (id, pwd) => {
       })
       .catch(error => {
         console.log(error);
+        window.alert("이메일 / 비밀번호 형식이 맞지 않거나, 비밀번호가 일치하지 않습니다!")
       });
   };
 };

@@ -7,10 +7,11 @@ const NotiCard = props => {
   const {image_url, user_name, post_id} = props;
 
   const styles = {
-    bg: "#eee",
+    bg: "#f9f9f9",
     height: "100px",
     margin: "20px 0",
-    is_flex: true,
+    flex: 'start',
+    padding: '0 20px'
   };
 
   return (

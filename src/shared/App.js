@@ -19,9 +19,7 @@ import Notification from "../pages/Notification";
 
 function App() {
   const dispatch = useDispatch();
-
   const is_session = isSession();
-
   React.useEffect(() => {
     if (is_session) {
       dispatch(userActions.loginCheckFB());
@@ -29,8 +27,13 @@ function App() {
   }, []);
   return (
     <div className="App flex-column-center">
-      <Grid width="400px" height="100vh">
-        <Header />
+      <Header />
+      <Grid
+        padding="0 40px"
+        width="600px"
+        bs="rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px"
+      >
+        
         <ConnectedRouter history={history}>
           <Route path="/" exact component={PostList} />
           <Route path="/postwrite" exact component={PostWrite} />

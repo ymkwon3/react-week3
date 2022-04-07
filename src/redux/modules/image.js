@@ -1,14 +1,10 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
-import { storage } from "../../shared/firebase";
 
 const UPLOADING = "UPLOADING";
 const UPLOAD_IMAGE = "UPLOAD_IMAGE";
 const SET_PREVIEW = "SET_PREVIEW";
 
-const uploading = createAction(UPLOADING, (uploading) => ({uploading}));
 const uploadImage = createAction(UPLOAD_IMAGE, (image_url) => ({image_url}));
 const setPreview = createAction(SET_PREVIEW, (preview) => ({preview}));
 
@@ -18,19 +14,6 @@ const initialState = {
   uploading: false,
   preview: null,
 }
-
-// const uploadImageFB = (image) => {
-//   return function(dispatch, getState, {history}){
-//     dispatch(uploading(true))
-//     const _ref = ref(storage, `images/${image.name}`);
-
-//     uploadBytes(_ref, image).then((res) => {
-//       getDownloadURL(res.ref).then((url) => {
-//         dispatch(uploadImage(url))
-//       })
-//     })
-//   }
-// }
 
 export default handleActions({
   [UPLOAD_IMAGE]: (state, action) => produce(state, (draft) => {
@@ -47,7 +30,6 @@ export default handleActions({
 
 const actionCreators = {
   uploadImage,
-  // uploadImageFB,
   setPreview,
 }
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Grid = props => {
   const {
-    is_flex,
+    flex,
     width,
     height,
     margin,
@@ -14,28 +14,33 @@ const Grid = props => {
     border,
     children,
     _onClick,
+    className,
+    bs,
   } = props;
 
   const styles = {
-    is_flex: is_flex,
+    flex: flex,
     width: width,
     height: height,
     margin: margin,
     padding: padding,
     position: position,
     bg: bg,
+    bs: bs,
     textAlign: textAlign,
     border: border,
   };
   return (
     <>
-      <GridBox {...styles} onClick={_onClick}>{children}</GridBox>
+      <GridBox className={className} {...styles} onClick={_onClick}>
+        {children}
+      </GridBox>
     </>
   );
 };
 
 Grid.defaultProps = {
-  is_flex: false,
+  flex: '',
   width: "100%",
   height: "",
   padding: "",
@@ -45,22 +50,30 @@ Grid.defaultProps = {
   children: null,
   textAlign: "",
   border: "none",
+  bs: "",
   _onClick: () => {},
 };
 
 const GridBox = styled.div`
-  width: ${props => props.width};
+  width: 100%;
+  max-width: ${props => props.width};
   height: ${props => props.height};
-  box-sizing: border-box;
   position: ${props => props.position};
   padding: ${props => props.padding};
   margin: ${props => props.margin};
   background-color: ${props => props.bg};
   text-align: ${props => props.textAlign};
   border: ${props => props.border};
+  box-shadow: ${props => props.bs};
   ${props =>
-    props.is_flex
+    props.flex === 'start'
+      ? `display: flex; align-items: center; justify-content: start`
+      : props.flex === 'space-between'
       ? `display: flex; align-items: center; justify-content: space-between;`
+      : props.flex === 'space-around'
+      ? `display: flex; align-items: center; justify-content: space-around;`
+      : props.flex === 'end'
+      ? `display: flex; align-items: center; justify-content: end;`
       : ""};
 `;
 

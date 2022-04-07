@@ -19,6 +19,10 @@ const PostDetail = props => {
   const [comment_text, setCommentText] = React.useState("");
 
   const setComment = () => {
+    if(comment_text === "") {
+      window.alert("빈칸을 채워주세요!");
+      return;
+    }
     setCommentText("");
     dispatch(commentActions.addCommentFB(pid, comment_text));
   };
@@ -32,7 +36,7 @@ const PostDetail = props => {
     <>
       {post ? <Post {...post} /> : null}
       <Permit>
-        <Grid padding="16px" is_flex>
+        <Grid padding="16px" flex="space-around">
           <Input
             width="300px"
             ph="댓글 내용을 입력해주세요"
@@ -41,7 +45,7 @@ const PostDetail = props => {
             _onSubmit={setComment}
             _onChange={e => setCommentText(e.target.value)}
           ></Input>
-          <Button width="50px" margin="0 2px 0 2px" _onClick={setComment}>
+          <Button bg="#80a841" width="100px" margin="0 2px 0 2px" _onClick={setComment}>
             작성
           </Button>
         </Grid>

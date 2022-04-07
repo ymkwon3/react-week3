@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = props => {
-  const { width, height, color, bg, size, padding, _onClick, children } = props;
+  const { margin, width, height, color, bg, size, padding, _onClick, children } = props;
   const styles = {
+    margin: margin,
     width: width,
     height: height,
     color: color,
@@ -22,11 +23,12 @@ const Button = props => {
 };
 
 Button.defaultProps = {
+  margin: "0",
   width: "100%",
   height: null,
   color: "#ffffff",
-  size: "14px",
-  padding: "0",
+  size: "20px",
+  padding: "5px",
   bg: "#000000",
 };
 
@@ -37,8 +39,14 @@ const ButtonStyled = styled.button`
   padding: ${props => props.padding};
   color: ${props => props.color};
   background-color: ${(props) => props.bg};
+  margin: ${(props) => props.margin};
   border: none;
   cursor: pointer;
+  transition: 0.1s;
+
+  &:active {
+    transform: scale(0.95);
+  }
 `;
 
 export default Button;

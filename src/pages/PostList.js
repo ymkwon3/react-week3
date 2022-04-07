@@ -18,7 +18,7 @@ const PostList = props => {
   }, []);
 
   return (
-    <Grid bg="#EFF6FF" padding="20px 0">
+    <Grid>
       <InfinityScroll
         callNext={() => {
           dispatch(postActions.getPostFB(paging.next));
@@ -35,7 +35,7 @@ const PostList = props => {
       <Permit>
         <Icons
           icon={"MdAddBox"}
-          color={"red"}
+          color={"#80a841"}
           position={"fixed"}
           trbl={["", "15px", "15px", ""]}
           size={60}

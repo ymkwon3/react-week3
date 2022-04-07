@@ -69,8 +69,8 @@ const Input = props => {
 
 Input.defaultProps = {
   width: "100%",
-  color: "#222831",
-  size: "14px",
+  color: "#80a841",
+  size: "18px",
   padding: "0",
   type: "text",
   isSubmit: false,

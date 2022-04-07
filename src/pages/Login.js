@@ -10,15 +10,16 @@ const Login = props => {
   const dispatch = useDispatch();
 
   const loginBtn = () => {
-
-    //테스트 계정 로그인 편하게 해주려고 했습니다. 나중에 지워야합니다람쥐
-    // dispatch(userActions.loginFB("t@test.com", "1q2w3e4r"));
+    if(id === "" || pwd === "") {
+      window.alert("빈칸을 채워주세요!");
+      return;
+    }
     dispatch(userActions.loginFB(id, pwd));
   }
 
   return (
     <>
-      <Grid className="flex-column-center">
+      <Grid className="flex-column-center" padding="40px 10px">
         <Grid>
           <Text fontWeight="bold" fontSize="24px">
             로그인
@@ -30,6 +31,7 @@ const Login = props => {
             label={"아이디"}
             padding={"10px"}
             _onChange={(e) => setId(e.target.value)}
+            color={"#80a841"}
           ></Input>
         </Grid>
         <Grid margin={"10px auto"}>
@@ -40,10 +42,11 @@ const Login = props => {
             type={"password"}
             _onChange={(e) => setPwd(e.target.value)}
             _onSubmit={loginBtn}
+            color={"#80a841"}
           ></Input>
         </Grid>
         <Grid>
-          <Button bg={"black"} color={"#ffffff"} height={"40px"} _onClick={loginBtn}>로그인하기</Button>
+          <Button bg={"#80a841"} color={"#ffffff"} height={"40px"} _onClick={loginBtn}>로그인하기</Button>
         </Grid>
       </Grid>
     </>
