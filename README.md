@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# 프로젝트 소개
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 항해99 리액트 3주차 과제입니다.
 
-## Available Scripts
 
-In the project directory, you can run:
+##  1.제작 기간
 
-### `yarn start`
+2022.04.01 ~ 2022.04.07
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 2. 사용 기술
 
-### `yarn test`
+* Framework: React
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## 3. 핵심 기능
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* react-redux, firestore를 통한 상태관리
+  
+* 게시물 추가, 수정, 삭제
+  - react-redux의 미들웨어를 통해 firestore에 추가,수정,삭제를 진행하고, redux에 상태변화를 요청합니다.
+  - 게시물 삭제 시, 해당 게시몰에 작성된 댓글들도 삭제됩니디.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* 회원가입 및 로그인
+  - firebase auth를 이용한 회원가입과 로그인을 할 수 있습니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* 댓글 등록
+  - 로그인 시, 게시물에 댓글을 작성할 수 있습니다.
 
-### `yarn eject`
+* 무한 스크롤
+  - 스크롤이벤트를 활용한 무한 스크롤 구현했습니다.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* 댓글 알림
+  - firebase realtime database를 활용한 본인이 작성한 게시물에 댓글이 작성될 시, 알림을 주는 기능
+  - 알림을 한 번 확인하면 알림이 초기화됩니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![image](https://user-images.githubusercontent.com/48580444/162196861-36270bde-51c9-4d39-ac16-3fe7597f911d.png)
+![image](https://user-images.githubusercontent.com/48580444/162196934-86453a72-37cc-463a-8eed-25802e00b80d.png)
+![image](https://user-images.githubusercontent.com/48580444/162197078-fb3db1e8-fc56-491e-9fd9-46796d35b8e8.png)
+![image](https://user-images.githubusercontent.com/48580444/162197132-37c6b348-29bb-426f-97e5-dfca69e37b9c.png)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 4. 회고
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+정말 작은 input, text, div단위로 컴포넌트를 만들어 이용해서 적응하기가 힘들었다. 아주 작은 단위로 나누면 좋을것 같았지만, 막상 진행해보니 적당한 기준으로 나누는게 편하고 가독성도 좋을것 같다.
